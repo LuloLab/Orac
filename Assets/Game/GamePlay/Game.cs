@@ -108,7 +108,7 @@ public class Game : MonoBehaviour
             box.GetChild(0).transform.localPosition += 0.5f * Vector3.back;
             --boxRange.y;
         }
-        box.localScale = (0.5f + 2.0f / boxRange.y) * Vector3.one;
+        box.localScale = (0.4f + 2.0f / boxRange.y) * Vector3.one;
 
         var boxMat = new Material(GR.boxMat);
         boxMat.SetVector("Bound", boxRange);
@@ -197,7 +197,7 @@ public class Game : MonoBehaviour
                         targ.transform.SetParent(box);
                         targ.transform.localPosition = GetPos(thisPos, 0.001f);
                         targ.transform.rotation = Quaternion.Euler(90, 0, 0);
-                        targ.transform.localScale = new Vector3(0.75f, 0.75f, 1);
+                        targ.transform.localScale = new Vector3(0.6f, 0.6f, 1);
                         var targSpriteRenderer = targ.AddComponent<SpriteRenderer>();
                         targSpriteRenderer.sprite = sprite;
                         targetObjs[thisPos] = quad.pattern;
@@ -208,7 +208,8 @@ public class Game : MonoBehaviour
                         // sprite
                         var quadSprite = new GameObject("sprite");
                         quadSprite.transform.SetParent(quad.transform);
-                        quadSprite.transform.localPosition = new(
+                        quadSprite.transform.localPosition = 
+                            Quaternion.Inverse(quad.transform.rotation) * new Vector3(
                             quad.subquads[i].pos % info.xx - quad.initFirstPos % info.xx,
                             0.201f,
                             quad.subquads[i].pos / info.xx - quad.initFirstPos / info.xx);

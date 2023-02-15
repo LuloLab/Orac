@@ -21,6 +21,13 @@ public class QuadOut : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.name != "default")
-            A.QuadGround(Mathf.Min(collision.impulse.magnitude, 1f));
+        {
+            if (GetComponent<Quad>().iron ||
+                collision.collider.TryGetComponent<Quad>(out var otherQuad) &&
+                otherQuad.iron)
+                A.IronIron();
+            else
+                A.QuadIron();
+        }
     }
 }
